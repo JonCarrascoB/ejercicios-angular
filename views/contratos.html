@@ -1,0 +1,96 @@
+<h1>Ejercicios con contratos</h1>
+<div class="row">
+    <h2>Resumen contratos</h2>
+    <ol>
+        <li>Numero de contratos sin acciones</li>
+        <li>Numero de contratos entre 1 y 3 acciones</li>
+        <li>Numero de contratos entre > 3 acciones</li>
+        <li>todas las acciones diferentes</li>
+        <li>Encontrar (FIND) primer contrato que en las acciones tenga la clave = SITUACION</li>
+        <li>Encontrar (FIND) ultimo contrato que en las acciones tenga la clave = SITUACION</li>
+    </ol>
+</div>
+<p>Numero de contratos totales: {{vm.contratosJson.length}}</p>
+<div class="row">
+    <h2>Resultados:</h2>
+    <ol>
+        <li>{{vm.contratosSinAccion.length}}</li>
+        <li>{{vm.contratosUnoTres.length}}</li>
+        <li>{{vm.contratosMasTres.length}}</li>
+        <li>{{vm.todasAcciones.length}}</li>
+        <li>Encontrar (FIND) primer contrato que en las acciones tenga la clave = SITUACION</li>
+        <li>Encontrar (FIND) ultimo contrato que en las acciones tenga la clave = SITUACION</li>
+    </ol>
+</div>
+<div class="row">
+    <div class="col lineaV">
+        <h2>{{vm.titulo}}</h2>
+        <p>   
+            <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
+                Filtros
+            </button>
+        </p>
+        <div class="collapse" id="collapseExample">
+            <div class="card card-body">
+                Nombre: <input type="search" class="form-control" ng-model="filtro.nombre" placeholder="Escriba el nombre de la cuenta.">
+                IdColumn: <input type="search" class="form-control" ng-model="filtro.idColumn" placeholder="Escriba el identificador de cuenta.">
+            </div>
+        </div>
+        <table class="table text-center">
+            <thead class="thead-dark">
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col" ng-click="campo='idColumn'; orden= !orden">IdColumn</th>
+                    <th scope="col">Nombre</th>
+                    <th scope="col">Numero de Acciones</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="contrato in vm.contratosJson | filter: filtro | orderBy:campo:orden">
+                    <th scope="col">{{$index}}</th>
+                    <td>{{contrato.idColumn}}</td>
+                    <td>{{contrato.nombre?contrato.nombre:"**Sin nombre**"}}</td>
+                    <td>{{contrato.ACCIONES.length?contrato.ACCIONES.length:0}}</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <div class="col">
+        <h2>Contratos mapeados</h2>
+        <p>   
+            <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
+                      Filtros
+            </button>
+        </p>
+        <div class="collapse" id="collapseExample">
+            <div class="card card-body">
+                Nombre: <input type="search" class="form-control" ng-model="busqueda.nombre" placeholder="Escriba el nombre de la cuenta.">
+                Id: <input type="search" class="form-control" ng-model="busqueda.id" placeholder="Escriba el identificador de cuenta.">
+                Numero acciones: <input type="search" class="form-control" ng-model="busqueda.numeroAcciones" placeholder="Escriba el numero de acciones."> 
+            </div>
+        </div>
+        <table class="table text-center">
+            <thead class="thead-dark">
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col" ng-click="elem='id'; order= !order">Id</th>
+                    <th scope="col" ng-click="elem='nombre'; order= !order">Nombre</th>
+                    <th scope="col" ng-click="elem='numeroAcciones'; order= !order">Numero Acciones</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="contrato in vm.contratosMapeados | filter: busqueda | orderBy:elem:order">
+                    <th scope="col">{{$index}}</th>
+                    <td>{{contrato.id}}</td>
+                    <td>{{contrato.nombre}}</td>
+                    <td>{{contrato.numeroAcciones}}</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<!-- <pre>{{vm.contratosJson | json}}</pre> -->
+
+
+

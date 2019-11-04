@@ -1,0 +1,11 @@
+.active {
+    color: teal;
+    font-weight: 800;
+    border-bottom: 4px solid teal;
+}
+nav a{
+    text-decoration: none;
+}
+.lineaV{
+    border-right: 4px solid teal;
+}

@@ -1,0 +1,26 @@
+{
+  "name": "repaso-jonc",
+  "version": "1.0.0",
+  "description": "Repaso de angular con TipeScript",
+  "main": "index.js",
+  "dependencies": {
+    "angular": "^1.6.9"
+  },
+  "devDependencies": {
+    "@types/angular": "^1.6.43",
+    "@types/angular-translate": "^2.16.0",
+    "@types/angular-ui-router": "^1.1.40",
+    "@types/node": "^12.12.3",
+    "@uirouter/angularjs": "^1.0.22",
+    "json-server": "^0.15.1",
+    "concurrently": "^5.0.0",
+    "http-server": "^0.11.1",
+    "typescript": "^3.5.1"
+  },
+  "scripts": {
+    "start": "json-server --watch db.json |http-server -o http://localhost:5000/index.html -p 5000"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
+}

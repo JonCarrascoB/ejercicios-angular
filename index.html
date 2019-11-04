@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="repaso">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+
+    <!-- CSS Bootstrap -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <!-- FontAwesone-->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.9.0/css/all.min.css">
+    <!-- nuestro CSS-->
+    <link rel="stylesheet" href="resources/css/style.css">
+
+    <!-- angularJS-->
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-router/1.0.3/angular-ui-router.js"></script>
+    <script src="//unpkg.com/@uirouter/visualizer@4"></script>
+
+    <!-- Modelo de datos -->
+
+    <!-- Servicios -->
+
+    <!-- Controladores -->
+    <script src="controllers/ContratosController.js"></script>
+
+    <!-- Nuestra App -->
+    <script src="app.js"></script>
+
+
+</head>
+<body  ng-strict-di ng-cloak>
+    <!-- <h1>{{'Repaso App' | uppercase}}</h1> -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <div class="container">
+            <a class="navbar-brand" href="#">Navbar</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                  <span class="navbar-toggler-icon"></span>
+            </button>
+              
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav mr-auto">
+                    <li class="nav-item active">
+                      <a class="nav-link" ui-sref="home" ui-sref-active="active">Home </a>
+                    </li>
+                    <li class="nav-item">
+                      <a class="nav-link" ui-sref="leeme" ui-sref-active="active">Leeme</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" ui-sref="contratos" ui-sref-active="active">Filter-Map-Reduce</a>
+                    </li>
+                </ul>
+            </div>
+        </div> 
+    </nav>
+    
+    <!-- Vistas a cargar dinamicamente al navegador de la app-->
+    <main class="container" ui-view></main>
+
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+</body>
+</html>
