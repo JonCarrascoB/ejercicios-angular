@@ -6,6 +6,7 @@ interface ILibrosControllerScope extends ng.IScope {
     public titulo: string;
     public libros: Array<ILibro>;
     public mensaje: any;
+    public valido: any;
     
     public libroEditar:ILibro;
 
