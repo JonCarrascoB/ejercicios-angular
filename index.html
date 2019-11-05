@@ -19,11 +19,15 @@
     <script src="//unpkg.com/@uirouter/visualizer@4"></script>
 
     <!-- Modelo de datos -->
+    <script src="model/IContratoResumen.js"></script>
+    <script src="model/ILibro.js"></script>
 
     <!-- Servicios -->
+    <script src="services/librosService.js"></script>
 
     <!-- Controladores -->
     <script src="controllers/ContratosController.js"></script>
+    <script src="controllers/LibrosController.js"></script>
 
     <!-- Nuestra App -->
     <script src="app.js"></script>
@@ -32,28 +36,7 @@
 </head>
 <body  ng-strict-di ng-cloak>
     <!-- <h1>{{'Repaso App' | uppercase}}</h1> -->
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-        <div class="container">
-            <a class="navbar-brand" href="#">Navbar</a>
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                  <span class="navbar-toggler-icon"></span>
-            </button>
-              
-            <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                <ul class="navbar-nav mr-auto">
-                    <li class="nav-item active">
-                      <a class="nav-link" ui-sref="home" ui-sref-active="active">Home </a>
-                    </li>
-                    <li class="nav-item">
-                      <a class="nav-link" ui-sref="leeme" ui-sref-active="active">Leeme</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" ui-sref="contratos" ui-sref-active="active">Filter-Map-Reduce</a>
-                    </li>
-                </ul>
-            </div>
-        </div> 
-    </nav>
+    <div ng-include="'views/navbar.html'"></div>
     
     <!-- Vistas a cargar dinamicamente al navegador de la app-->
     <main class="container" ui-view></main>

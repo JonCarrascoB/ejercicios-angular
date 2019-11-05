@@ -1,8 +1,3 @@
-interface IContratoResumen{
-  id: string;
-  nombre: string;
-  numeroAcciones: number;
-}
 interface IContratosControllerScope extends ng.IScope {
     vm: ContratosController;
   }
@@ -68,7 +63,7 @@ interface IContratosControllerScope extends ng.IScope {
       // filtro para encontrar el ultimo contrato con clave SITUACION
       //$scope.vm.vuelta = $scope.vm.temporal.reverse();
       //console.debug('cambio orden %o', $scope.vm.vuelta);
-      $scope.vm.ultimoContrato = $scope.vm.temporal.reverse().find((e)=>e.ACCIONES.filter((e)=>e.clave === 'SITUACION' ));
+      $scope.vm.ultimoContrato = $scope.vm.temporal.reverse().find((e)=>e.ACCIONES.find((e)=>e.clave === 'SITUACION' ));
       console.debug('ultimo contrato %o', $scope.vm.ultimoContrato);
 
     } // constructor

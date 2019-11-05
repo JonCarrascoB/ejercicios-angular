@@ -17,7 +17,13 @@
         <li>{{vm.contratosSinAccion.length}}</li>
         <li>{{vm.contratosUnoTres.length}}</li>
         <li>{{vm.contratosMasTres.length}}</li>
-        <li>{{vm.todasAcciones.length}}</li>
+        <li>{{vm.todasAcciones.length}}, las cuales son:
+            <p>
+                <ol>
+                    <li ng-repeat="type in vm.todasAcciones">{{type}}</li>
+                </ol>
+            </p>
+        </li>
         <li>Identificador del contrato (IdColumn): <b>{{vm.primerContrato.idColumn}}</b></li>
         <li>Identificador del contrato (IdColumn): <b>{{vm.ultimoContrato.idColumn}}</li>
     </ol>

@@ -1,6 +1,8 @@
 var app = angular.module("repaso", ["ui.router"]);
-app.
-    controller("contratosController", ContratosController);
+app
+    .service("librosService", LibrosService)
+    .controller("contratosController", ContratosController)
+    .controller("contratosController", ContratosController);
 app.config([
     "$urlRouterProvider",
     "$stateProvider",
@@ -20,6 +22,11 @@ app.config([
             url: "/filter-map-reduce",
             templateUrl: "views/contratos.html",
             controller: ContratosController
+        })
+            .state("libros", {
+            url: "/libros",
+            templateUrl: "views/libros.html",
+            controller: LibrosController
         });
     }
 ]);

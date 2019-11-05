@@ -11,8 +11,10 @@ const app = angular.module("repaso", // nombre de la App o modulo principal
 );
 
 // 2. registrar servicios y modulos en la app
-app.
-    controller("contratosController", ContratosController);
+app
+  .service("librosService", LibrosService)
+  .controller("contratosController", ContratosController)
+  .controller("contratosController", ContratosController);
 
 // 3. configuracion de rutas
 app.config([
@@ -36,6 +38,11 @@ app.config([
             url:"/filter-map-reduce",
             templateUrl: "views/contratos.html",
             controller: ContratosController
+        })
+        .state("libros",{
+          url:"/libros",
+          templateUrl: "views/libros.html",
+          controller: LibrosController
         })
         /*
         .state("app", {

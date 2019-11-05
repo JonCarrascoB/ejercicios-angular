@@ -1,0 +1,109 @@
+<h1>{{vm.titulo}}</h1>
+<div class="alert alert-{{vm.mensaje.clase}} alert-dismissible fade show" role="alert" ng-show="vm.mensaje">
+    <p ng-bind-html="vm.mensaje.texto"></p>
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close" ng-hide="{{(vm.mensaje.clase)?'false':'true'}}">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+<div class="row">
+    <div class="col">
+        <p>   
+            <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
+                Filtros
+            </button>
+            <button type="button" class="btn btn-primary" ng-click="vm.nuevo(libro)">Nuevo</button>
+        </p>
+        <div class="collapse" id="collapseExample">
+            <div class="card card-body">
+                Titulo: <input type="search" class="form-control" ng-model="filtro.titulo" placeholder="Escriba el titulo del libro...">
+                Autor: <input type="search" class="form-control" ng-model="filtro.autor" placeholder="Escriba el autor del libro...">
+            </div>
+        </div>
+        
+        <table class="table text-center">
+            <thead class="thead-dark">
+                <tr>
+                    <th scope="col" ng-click="campo='id'; orden= !orden">#</th>
+                    <th scope="col" ng-click="campo='titulo'; orden= !orden">Titulo</th>
+                    <th scope="col" ng-click="campo='autor'; orden= !orden">Autor</th>
+                    <th scope="col">Nº Pag.</th>
+                    <th scope="col">ISBN</th>
+                    <th scope="col">Formatos</th>
+                    <th scope="col" colspan="2">Opciones</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="libro in vm.libros | filter: filtro | orderBy:campo:orden">
+                    <th scope="col">{{libro.id}}</th>
+                    <td>{{libro.titulo}}</td>
+                    <td>{{libro.autor}}</td>
+                    <td>{{libro.numeroPaginas}}</td>
+                    <td>{{libro.isbn}}</td>
+                    <td>{{(libro.digital)?'':'papel'}}
+                        <ul ng-show="{{(libro.digital)}}">
+                            <li ng-repeat="formato in libro.formatos">{{formato}}</li>
+                        </ul>
+                    </td>
+                    <td>
+                        <button type="button" ng-click="vm.editar(libro)" class="btn btn-success">
+                            <i class="fas fa-pencil-alt" ></i>
+                        </button>
+                    </td>
+                    <td>
+                        <button type="button" ng-click="vm.borrar(libro.id)" class="btn btn-danger">
+                            <i class="fas fa-trash-alt"></i>
+                        </button>  
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <div class="col-4" ng-show="vm.mostrarForm">
+        <h2>Formulario</h2>
+        <form name="form" novalidate>
+            <div class="form-group">
+                <label for="titulo">Titulo del libro:</label>
+                <input type="text" class="form-control" id="titulo" ng-model="vm.libroEditar.titulo" placeholder="Inserte el titulo..." required> 
+            </div>
+            <div class="form-group">
+                <label for="autor">Autor del libro:</label>
+                <input type="text" class="form-control" id="autor"  ng-model="vm.libroEditar.autor" placeholder="Inserte el nombre del autor..." required> 
+            </div>
+            <div class="form-group">
+                <label for="numeroPag">Número de Páginas del libro:</label>
+                <input type="number" class="form-control" id="numeroPag" ng-model="vm.libroEditar.numeroPaginas" placeholder="Inserte el numero de paginas..." required> 
+            </div>
+            <div class="form-group">
+                <label for="isbn">ISBN del libro:</label>
+                <input type="text" class="form-control" id="isbn"  ng-model="vm.libroEditar.isbn" placeholder="Inserte el ISBN del libro..." required> 
+            </div>
+            <div class="form-group">
+                <p>Formato:</p>
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" name="digital"
+                    ng-checked="!vm.libroEditar.digital" id="papel" value="false">
+                    <label class="form-check-label" for="papel">Papel</label>
+                </div>
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" name="digital" id="digital"  ng-checked="vm.libroEditar.digital" value="true">
+                    <label class="form-check-label" for="digital">Digital</label>
+                </div>
+            </div>  
+            <div class="form-group">
+                <p>Tipos de formatos:</p>
+                <div class="form-check form-check-inline" ng-repeat="formato in vm.formatos">
+                    <input class="form-check-input" type="checkbox" id="{{formato}}" ng-checked="vm.libroEditar.formatos[$index]" value="{{formato}}">
+                    <label class="form-check-label" for="{{formato}}">{{formato}}</label>
+              </div>
+            </div>
+            <button  class="btn btn-success" type="submit" ng-click="vm.crear(form.$valid)" ng-show="(vm.libroEditar)?false:true" ng-disabled="form.$invalid && form.$pristine">Crear</i></button>
+            <button  class="btn btn-success" type="submit" ng-click="vm.modificar(form.$valid)" ng-show="(vm.libroEditar)?true:false" ng-disabled="form.$invalid && form.$pristine">Guardar</i></button>   
+            
+        </form>
+
+    </div>
+    
+
+
+</div>
+<!-- <pre>{{vm.libros | json}}</pre> -->

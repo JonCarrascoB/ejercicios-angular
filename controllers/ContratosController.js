@@ -28,7 +28,7 @@ var ContratosController = (function () {
         console.debug('acciones %o', $scope.vm.todasAcciones);
         $scope.vm.primerContrato = $scope.vm.temporal.find(function (elem) { return elem.ACCIONES.filter(function (elem) { return elem.clave === 'SITUACION'; }); });
         console.debug('primer contrato %o', $scope.vm.primerContrato);
-        $scope.vm.ultimoContrato = $scope.vm.temporal.reverse().find(function (e) { return e.ACCIONES.filter(function (e) { return e.clave === 'SITUACION'; }); });
+        $scope.vm.ultimoContrato = $scope.vm.temporal.reverse().find(function (e) { return e.ACCIONES.find(function (e) { return e.clave === 'SITUACION'; }); });
         console.debug('ultimo contrato %o', $scope.vm.ultimoContrato);
     }
     ContratosController.$inject = ["$scope", "contratosJson"];

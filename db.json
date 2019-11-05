@@ -15,5 +15,35 @@
   ],
   "profile": {
     "name": "typicode"
-  }
+  },
+  "libros": [
+    {
+      "titulo": "Inventos Infernales",
+      "isbn": "123-LKJ",
+      "id": 1,
+      "numeroPaginas": 123,
+      "autor": "Dr Frankestein",
+      "digital": false
+    },
+    {
+      "titulo": "Mortadelo y Filemon, La Gomeztroika",
+      "isbn": "9788440635730",
+      "id": 2,
+      "numeroPaginas": 64,
+      "autor": "Francisco Ibañez",
+      "digital": true,
+      "formatos": [
+        "epub",
+        "pdf"
+      ]
+    },
+    {
+      "titulo": "Mortadelo y Filemon, Drones Matones",
+      "isbn": "9788402421432",
+      "id": 3,
+      "numeroPaginas": 48,
+      "autor": "Francisco Ibañez",
+      "digital": false
+    }
+  ]
 }
