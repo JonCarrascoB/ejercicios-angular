@@ -21,7 +21,7 @@
       "titulo": "Inventos Infernales",
       "isbn": "123-LKJ",
       "id": 1,
-      "numeroPaginas": 123,
+      "numeroPaginas": 126,
       "autor": "Dr Frankestein",
       "digital": false
     },
@@ -44,6 +44,15 @@
       "numeroPaginas": 48,
       "autor": "Francisco Ibañez",
       "digital": false
+    },
+    {
+      "titulo": "La Trilogía de las Cruzadas III. Regreso al norte",
+      "autor": "Jan Gillou",
+      "numeroPaginas": 541,
+      "isbn": "8408064908",
+      "digital": "true",
+      "id": 4,
+      "formatos": "epub"
     }
   ]
 }

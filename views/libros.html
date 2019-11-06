@@ -1,4 +1,5 @@
 <h1>{{vm.titulo}}</h1>
+<!-- Avisos al crear, modificar, eliminar, etc... -->
 <div class="alert alert-{{vm.mensaje.clase}} alert-dismissible fade show" role="alert" ng-show="vm.mensaje">
     <p ng-bind-html="vm.mensaje.texto"></p>
     <button type="button" class="close" data-dismiss="alert" aria-label="Close" ng-hide="{{(vm.mensaje.clase)?'false':'true'}}">
@@ -7,11 +8,12 @@
   </div>
 <div class="row">
     <div class="col">
+        <!-- Filtros y botones -->
         <p>   
             <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
                 Filtros
             </button>
-            <button type="button" class="btn btn-primary" ng-click="vm.nuevo(libro)">Nuevo</button>
+            <button type="button" class="btn btn-primary" ng-click="vm.nuevo()">Nuevo</button>
         </p>
         <div class="collapse" id="collapseExample">
             <div class="card card-body">
@@ -19,7 +21,7 @@
                 Autor: <input type="search" class="form-control" ng-model="filtro.autor" placeholder="Escriba el autor del libro...">
             </div>
         </div>
-        
+        <!-- Tabla de los datos -->
         <table class="table text-center">
             <thead class="thead-dark">
                 <tr>
@@ -50,20 +52,43 @@
                         </button>
                     </td>
                     <td>
-                        <button type="button" ng-click="vm.borrar(libro.id)" class="btn btn-danger">
+                        <button type="button" data-toggle="modal" data-target="#eliminarLibro" class="btn btn-danger" ng-click="vm.libroBorrar = libro">
                             <i class="fas fa-trash-alt"></i>
                         </button>  
                     </td>
                 </tr>
             </tbody>
-        </table>
+        </table> <!-- end table -->
+
+        <!-- Modal para confirmar el borrado del libro -->
+        <div class="modal" tabindex="-1" id="eliminarLibro" role="dialog">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                      <h5 class="modal-title">¿Esta usted seguro?</h5>
+                      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                      </button>
+                    </div>
+                    <div class="modal-body">
+                      <p>Cuando pulse a eliminar, {{vm.libroBorrar.titulo | uppercase}} sera elimando definitivamente de la base de datos. Esta accion es <b>IRREVERSIBLE</b> </p>
+                    </div>
+                    <div class="modal-footer">
+                      <button type="button" class="btn btn-secondary" data-dismiss="modal">Volver</button>
+                      <button type="button" class="btn btn-danger" ng-click="vm.borrar(vm.libroBorrar.id)" data-dismiss="modal">Eliminar</button>
+                    </div>
+                </div>
+            </div>
+        </div> <!-- End Modal-->
     </div>
-    <div class="col-4" ng-show="vm.mostrarForm">
+
+    <!-- Formulario -->
+    <div class="col-4 mb-5" ng-show="vm.mostrarForm">
         <h2>Formulario</h2>
-        <form name="form" novalidate>
+        <form name="form" ng-submit="vm.guardar()" novalidate>
             <div class="form-group">
                 <label for="titulo">Titulo del libro:</label>
-                <input type="text" class="form-control" id="titulo" ng-model="vm.libroEditar.titulo" placeholder="Inserte el titulo..." required> 
+                <input type="text" class="form-control" id="titulo" minlength="2" maxlength="150" ng-model="vm.libroEditar.titulo" placeholder="Inserte el titulo..." required> 
             </div>
             <div class="form-group">
                 <label for="autor">Autor del libro:</label>
@@ -80,25 +105,50 @@
             <div class="form-group">
                 <p>Formato:</p>
                 <div class="form-check form-check-inline">
-                    <input class="form-check-input" type="radio" name="digital"
+                    <input class="form-check-input" type="radio" name="digital" ng-model="vm.libroEditar.digital"
                     ng-checked="!vm.libroEditar.digital" id="papel" value="false">
                     <label class="form-check-label" for="papel">Papel</label>
                 </div>
                 <div class="form-check form-check-inline">
-                    <input class="form-check-input" type="radio" name="digital" id="digital"  ng-checked="vm.libroEditar.digital" value="true">
+                    <input class="form-check-input" type="radio" name="digital" id="digital" ng-model="vm.libroEditar.digital" ng-checked="vm.libroEditar.digital" value="true">
                     <label class="form-check-label" for="digital">Digital</label>
                 </div>
-            </div>  
-            <div class="form-group">
-                <p>Tipos de formatos:</p>
-                <div class="form-check form-check-inline" ng-repeat="formato in vm.formatos">
-                    <input class="form-check-input" type="checkbox" id="{{formato}}" ng-checked="vm.libroEditar.formatos[$index]" value="{{formato}}">
-                    <label class="form-check-label" for="{{formato}}">{{formato}}</label>
-              </div>
             </div>
-            <button  class="btn btn-success" type="submit" ng-click="vm.crear(form.$valid)" ng-show="(vm.libroEditar)?false:true" ng-disabled="form.$invalid && form.$pristine">Crear</i></button>
-            <button  class="btn btn-success" type="submit" ng-click="vm.modificar(form.$valid)" ng-show="(vm.libroEditar)?true:false" ng-disabled="form.$invalid && form.$pristine">Guardar</i></button>   
-            
+            <!-- Modificacion con un select en vez de checkbox -->
+            <!--
+            <div class="form-group" ng-show="(vm.libroEditar.digital == 'true')">
+                <p>Tipos de formatos:</p>
+                <select name="formatos" multiple ng-model="vm.libroEditar.formatos">
+                    <option ng-repeat="formato in vm.formatos" value="{{formato}}">{{formato}}</option>
+                </select>
+                <small id="emailHelp" class="form-text text-muted">**Usar la tecla Ctrl para seleccionar varios tipos de formato.</small>     
+            </div>
+            -->
+            <!-- Uso de checkbox -->    
+            <div class="form-group" ng-show="(vm.libroEditar.digital == 'true')">
+                <p>Tipos de formatos:</p>
+                <div ng-if="vm.libroEditar.formatos">
+                    <div class="form-check form-check-inline" ng-repeat="formato in vm.formatos">
+                        <input class="form-check-input" type="checkbox" id="{{formato}}" name="{{formato}}" ng-true-value="'{{formato}}'" ng-model="vm.libroEditar.formatos[formato]" ng-checked="vm.libroEditar.formatos[$index]">
+                        <label class="form-check-label" for="{{formato}}">{{formato}}</label>
+                    </div>
+                </div>
+                <div ng-if="!vm.libroEditar.formatos">
+                    <div class="form-check form-check-inline" name="formatos[]">
+                        <input type="checkbox" class="form-check-input" id="epub" ng-true-value="'epub'" name="epub" ng-model="vm.libroEditar.formatos">
+                        <label class="form-check-label" for="epub"> .epub</label>
+                    </div>
+                    <div class="form-check form-check-inline" name="formatos[]">
+                        <input type="checkbox" class="form-check-input" id="pdf" ng-true-value="'pdf'" name="pdf" ng-model="vm.libroEditar.formatos">
+                        <label class="form-check-label" for="pdf"> .pdf</label>
+                    </div>
+                    <div class="form-check form-check-inline" name="formatos[]">
+                        <input type="checkbox" class="form-check-input" id="opf" ng-true-value="'opf'" name="opf" ng-model="vm.libroEditar.formatos">
+                        <label class="form-check-label" for="opf"> .opf</label>  
+                    </div>
+                </div>
+            </div>
+            <input type="submit" value="{{(vm.libroEditar.id)?'Modificar':'Guardar'}}" class="btn btn-success" ng-disabled="form.$invalid || form.$pristine">
         </form>
 
     </div>

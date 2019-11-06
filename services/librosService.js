@@ -27,16 +27,25 @@ var LibrosService = (function () {
     LibrosService.prototype.delete = function (id) {
         var url = ENDPOINT + id;
         console.log('servicio eliminar' + url);
-        return this.http.delete(url).then(function (res) { return true; });
+        return this.http.delete(url).then(function (res) {
+            console.debug('Peticion correcta %o', res);
+            return true;
+        });
     };
     LibrosService.prototype.crear = function (libro) {
-        console.log('servicio crear' + ENDPOINT);
-        return this.http.post(ENDPOINT, libro).then(function (result) { return true; });
+        console.log('servicio POST' + ENDPOINT);
+        return this.http.post(ENDPOINT, libro).then(function (result) {
+            console.debug('Peticion correcta %o', result);
+            return result.data;
+        });
     };
     LibrosService.prototype.modificar = function (id, libro) {
         var url = ENDPOINT + id;
-        console.log('servicio modificar' + url);
-        return this.http.put(url, libro).then(function (result) { return true; });
+        console.log('servicio PUT' + url);
+        return this.http.put(url, libro).then(function (result) {
+            console.debug('Peticion correcta %o', result);
+            return result.data;
+        });
     };
     return LibrosService;
 }());
