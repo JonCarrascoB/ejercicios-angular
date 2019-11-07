@@ -1,9 +1,5 @@
-interface IFormato{
-    id: number;
-    titulo: string;
-}
+class Libro implements ILibro{
 
-interface ILibro{
     titulo: string;
     isbn: string;
     id: number;
@@ -11,4 +7,5 @@ interface ILibro{
     autor: string;
     digital: boolean;
     formatos?: IFormato[]; //indica si es opcional el parametro
+
 }

@@ -2,7 +2,7 @@
 <!-- Avisos al crear, modificar, eliminar, etc... -->
 <div class="alert alert-{{vm.mensaje.clase}} alert-dismissible fade show" role="alert" ng-show="vm.mensaje">
     <p ng-bind-html="vm.mensaje.texto"></p>
-    <button type="button" class="close" data-dismiss="alert" aria-label="Close" ng-hide="{{(vm.mensaje.clase)?'false':'true'}}">
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close" >
       <span aria-hidden="true">&times;</span>
     </button>
   </div>
@@ -103,49 +103,24 @@
                 <input type="text" class="form-control" id="isbn"  ng-model="vm.libroEditar.isbn" placeholder="Inserte el ISBN del libro..." required> 
             </div>
             <div class="form-group">
-                <p>Formato:</p>
-                <div class="form-check form-check-inline">
-                    <input class="form-check-input" type="radio" name="digital" ng-model="vm.libroEditar.digital"
-                    ng-checked="!vm.libroEditar.digital" id="papel" value="false">
-                    <label class="form-check-label" for="papel">Papel</label>
-                </div>
-                <div class="form-check form-check-inline">
-                    <input class="form-check-input" type="radio" name="digital" id="digital" ng-model="vm.libroEditar.digital" ng-checked="vm.libroEditar.digital" value="true">
-                    <label class="form-check-label" for="digital">Digital</label>
-                </div>
+                    <p>Formato:</p>
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="checkbox" name="digital" id="digital" ng-model="vm.libroEditar.digital" ng-checked="vm.libroEditar.digital">
+                        <label class="form-check-label" for="digital">Digital</label>
+                    </div>
             </div>
-            <!-- Modificacion con un select en vez de checkbox -->
-            <!--
-            <div class="form-group" ng-show="(vm.libroEditar.digital == 'true')">
+            <div class="form-group" ng-show="vm.libroEditar.digital">
                 <p>Tipos de formatos:</p>
-                <select name="formatos" multiple ng-model="vm.libroEditar.formatos">
-                    <option ng-repeat="formato in vm.formatos" value="{{formato}}">{{formato}}</option>
-                </select>
-                <small id="emailHelp" class="form-text text-muted">**Usar la tecla Ctrl para seleccionar varios tipos de formato.</small>     
-            </div>
-            -->
-            <!-- Uso de checkbox -->    
-            <div class="form-group" ng-show="(vm.libroEditar.digital == 'true')">
-                <p>Tipos de formatos:</p>
-                <div ng-if="vm.libroEditar.formatos">
-                    <div class="form-check form-check-inline" ng-repeat="formato in vm.formatos">
-                        <input class="form-check-input" type="checkbox" id="{{formato}}" name="{{formato}}" ng-true-value="'{{formato}}'" ng-model="vm.libroEditar.formatos[formato]" ng-checked="vm.libroEditar.formatos[$index]">
-                        <label class="form-check-label" for="{{formato}}">{{formato}}</label>
-                    </div>
-                </div>
-                <div ng-if="!vm.libroEditar.formatos">
-                    <div class="form-check form-check-inline" name="formatos[]">
-                        <input type="checkbox" class="form-check-input" id="epub" ng-true-value="'epub'" name="epub" ng-model="vm.libroEditar.formatos">
-                        <label class="form-check-label" for="epub"> .epub</label>
-                    </div>
-                    <div class="form-check form-check-inline" name="formatos[]">
-                        <input type="checkbox" class="form-check-input" id="pdf" ng-true-value="'pdf'" name="pdf" ng-model="vm.libroEditar.formatos">
-                        <label class="form-check-label" for="pdf"> .pdf</label>
-                    </div>
-                    <div class="form-check form-check-inline" name="formatos[]">
-                        <input type="checkbox" class="form-check-input" id="opf" ng-true-value="'opf'" name="opf" ng-model="vm.libroEditar.formatos">
-                        <label class="form-check-label" for="opf"> .opf</label>  
-                    </div>
+                <div class="form-check form-check-inline" ng-repeat="formato in vm.formatos" ng-model="vm.libroEditar.formatos" name="formatos">
+                    <input class="form-check-input" 
+                    type="checkbox" 
+                    id="{{formato}}" 
+                    ng-true-value="'{{formato}}'"
+                    ng-model="vm.libroEditar.formatos[$index].titulo"
+                    ng-checked="(vm.libroEditar.formatos[$index].titulo.includes('formato'))">
+                    <label class="form-check-label" for="{{formato}}">
+                        {{formato}} = {{vm.libroEditar.formatos[$index].titulo.includes('formato')}}
+                    </label>
                 </div>
             </div>
             <input type="submit" value="{{(vm.libroEditar.id)?'Modificar':'Guardar'}}" class="btn btn-success" ng-disabled="form.$invalid || form.$pristine">

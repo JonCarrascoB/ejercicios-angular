@@ -6,9 +6,6 @@ var LibrosService = (function () {
             return _this.http.get(ENDPOINT).then(function (result) {
                 console.debug('Peticion correcta %o', result);
                 return result.data;
-            }, function (result) {
-                console.debug('Peticcion INcorrecta %o', result);
-                return result;
             });
         };
         this.http = $http;
@@ -29,7 +26,7 @@ var LibrosService = (function () {
         console.log('servicio eliminar' + url);
         return this.http.delete(url).then(function (res) {
             console.debug('Peticion correcta %o', res);
-            return true;
+            return res.data;
         });
     };
     LibrosService.prototype.crear = function (libro) {

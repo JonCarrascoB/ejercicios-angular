@@ -1,0 +1,74 @@
+<h1>{{vm.titulo}}</h1>
+<!-- Avisos al crear, modificar, eliminar, etc... -->
+<div class="alert alert-{{vm.mensaje.clase}} alert-dismissible fade show" role="alert" ng-if="vm.mensaje">
+    <p ng-bind-html="vm.mensaje.texto"></p>
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close" ng-hide="{{(vm.mensaje.clase)?'false':'true'}}">
+      <span aria-hidden="true">&times;</span>
+    </button>
+</div>
+<!-- Buscador de Peliculas, series, etc...-->
+<div class="row mb-2">
+    <form name="form" ng-submit="vm.buscar()" novalidate>
+        <div class="form-group">
+            <label for="titulo">Titulo del elemento multimedia:</label>
+            <input type="text" class="form-control" id="titulo" ng-model="vm.search" placeholder="Inserte el titulo..." required> 
+        </div>
+        <input type="submit" value="Buscar" class="btn btn-success" ng-disabled="form.$invalid || form.$pristine">
+    </form>
+</div>
+<hr>
+<!-- Datos que nos regresan de la API y visualizamos -->
+<div class="row" ng-if="vm.movie">
+    <div class="col-3">
+        <p><b>Titulo:</b> {{vm.movie.Title}}</p>
+        <p><b>Duración:</b> {{vm.movie.Runtime}}</p>
+        <p><b>Director:</b> {{vm.movie.Director}}</p>
+        <p><b>Guionistas:</b></p>
+        <ul>
+            <li ng-repeat="guionista in vm.guionistas">{{guionista}}</li>
+        </ul>
+        <p><b>Reparto:</b></p>
+        <ul>
+            <li ng-repeat="actor in vm.actores">{{actor}}</li>
+        </ul>
+        <p><b>Premios:</b> {{vm.movie.Awards}}</p>
+        <p><b>Productora:</b> {{vm.movie.Production}}</p>
+    </div>
+    <div class="col-3">
+        <p><b>Fecha de Estreno:</b> {{vm.movie.Released}}</p>
+        <p><b>Genero:</b> {{vm.movie.Genre}}</p>
+        <p><b>País:</b> {{vm.movie.Country}}</p>
+        <p><b>Rodado en los idiomas:</b></p>
+        <ul>
+            <li ng-repeat="lenguaje in vm.lenguajes">{{lenguaje}}</li>
+        </ul>
+        <p><b>Recaudacion:</b> {{vm.movie.BoxOffice}}</p>
+        <p><b>Fecha de Venta DVD:</b> {{vm.movie.DVD}}</p>
+        <p><b>Tipo de Formato:</b> {{vm.movie.Type}}</p>
+        <p><b>Clasificacion:</b></p>
+        <img ng-src="./resources/img/{{vm.movie.Rated}}.png" class="card-img-top" alt="{{vm.movie.Rated}}">
+    </div>
+    <div class="col-6">
+        <div class="card text-justify" style="width: 100%;">
+            <img ng-src="{{vm.movie.Poster}}" class="card-img-top" alt="{{vm.movie.Title}}">
+            <div class="card-body">
+                <p class="card-text">{{vm.movie.Plot}}</p>
+            </div>
+        </div>
+    </div>  
+</div>
+<div class="row">
+    <table class="table text-center">
+        <thead class="thead-dark" >
+            <tr>
+                <th class="col" ng-repeat="etiqueta in vm.etiquetas">{{etiqueta}}</th>  
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td ng-repeat="ratio in vm.ratio">{{ratio}}</td>
+            </tr>
+        </tbody>
+    </table> <!-- end table -->
+</div>
+<!-- <pre>{{vm.movie|json}}</pre> -->

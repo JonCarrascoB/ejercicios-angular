@@ -1,8 +1,10 @@
 var app = angular.module("repaso", ["ui.router"]);
 app
     .service("librosService", LibrosService)
+    .service("moviesService", MoviesService)
     .controller("contratosController", ContratosController)
-    .controller("contratosController", ContratosController);
+    .controller("contratosController", ContratosController)
+    .controller("moviesController", MoviesController);
 app.config([
     "$urlRouterProvider",
     "$stateProvider",
@@ -27,6 +29,11 @@ app.config([
             url: "/libros",
             templateUrl: "views/libros.html",
             controller: LibrosController
+        })
+            .state("movies", {
+            url: "/movies",
+            templateUrl: "views/movies.html",
+            controller: MoviesController
         });
     }
 ]);
@@ -37,6 +44,12 @@ app.run([
         var pluginInstance = $uiRouter.plugin(Visualizer);
     }
 ]);
+app.constant("servicioConstantes", { "titulo": "IparBook",
+    "idioma": "es-ES",
+    "version": "1.0",
+    "autor": "Jon Carrasco",
+    "gitHub": "https://github.com/JonCarrascoB/ejercicios-angular.git"
+});
 app.constant("contratosJson", [
     {
         "DESAGRUP": "",

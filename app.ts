@@ -13,8 +13,10 @@ const app = angular.module("repaso", // nombre de la App o modulo principal
 // 2. registrar servicios y modulos en la app
 app
   .service("librosService", LibrosService)
+  .service("moviesService", MoviesService)
   .controller("contratosController", ContratosController)
-  .controller("contratosController", ContratosController);
+  .controller("contratosController", ContratosController)
+  .controller("moviesController", MoviesController);
 
 // 3. configuracion de rutas
 app.config([
@@ -44,6 +46,11 @@ app.config([
           templateUrl: "views/libros.html",
           controller: LibrosController
         })
+        .state("movies",{
+          url:"/movies",
+          templateUrl: "views/movies.html",
+          controller: MoviesController
+        })
         /*
         .state("app", {
             url: "/app",
@@ -70,6 +77,13 @@ app.run([
         const pluginInstance = $uiRouter.plugin(Visualizer);
     }
 ]);
+app.constant("servicioConstantes", {"titulo": "IparBook",
+                                    "idioma": "es-ES",
+                                    "version": "1.0",
+                                    "autor": "Jon Carrasco",
+                                    "gitHub": "https://github.com/JonCarrascoB/ejercicios-angular.git"
+                                  }
+);
 
 app.constant("contratosJson",[
           {

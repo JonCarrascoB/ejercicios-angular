@@ -2,7 +2,7 @@ interface ILibrosService{
 
     /**
      * Peticion GET para obtener un array de todos los libros
-     * @return angular.IPromise<ILibro[]>
+     * @return angular.IPromise<ILibro[]> Error angular.IPromise<ng.IHttpResponse<T>>
      */
     getLibros():angular.IPromise<ILibro[]>;
 
@@ -38,56 +38,52 @@ class LibrosService implements ILibrosService {
             (result)=> {
                 console.debug('Peticion correcta %o', result);
                 return result.data;
-            },
-            (result)=>{
-                console.debug('Peticcion INcorrecta %o', result);
-                return result;
             });
     }
 
-    // TODO poner public los metodos y tipar correctamente
-    getLibroDetalle(id: number): angular.IPromise<ILibro> {
-        let url = ENDPOINT + id;
-        console.log('servicio detalle' + url);
-        return this.http.get(url).then(
-            (result)=> {
-                console.debug('Peticion correcta %o', result);
-                return result.data;
-            },
-            (result)=>{
-                console.debug('Peticcion INcorrecta %o', result);
-                return result;
-            });
-    }
+   // TODO poner public los metodos y tipar correctamente
+   getLibroDetalle(id: number): angular.IPromise<ILibro> {
+    let url = ENDPOINT + id;
+    console.log('servicio detalle' + url);
+    return this.http.get(url).then(
+        (result)=> {
+            console.debug('Peticion correcta %o', result);
+            return result.data;
+        },
+        (result)=>{
+            console.debug('Peticcion INcorrecta %o', result);
+            return result;
+        });
+}
 
-    delete(id: number): angular.IPromise<any> {
-        let url = ENDPOINT + id;
-        console.log('servicio eliminar' + url);
-        return this.http.delete(url).then(
-            (res)=>{
-                console.debug('Peticion correcta %o', res);
-                return true;
-            });
-    }
-    
-    crear(libro: ILibro): angular.IPromise<any> {
-        console.log('servicio POST' + ENDPOINT);
-        return this.http.post(ENDPOINT, libro).then(
-            (result)=>{
-                console.debug('Peticion correcta %o', result);
-                return result.data;
-            });
-    }
-    
-    modificar(id: number, libro: ILibro): angular.IPromise<any> {
-        let url = ENDPOINT + id;
-        console.log('servicio PUT' + url);
-        return this.http.put(url, libro).then(
-            (result)=>{
-                console.debug('Peticion correcta %o', result);
-                return result.data;
-            });
-    }
+public delete(id: number): angular.IPromise<any> {
+    let url = ENDPOINT + id;
+    console.log('servicio eliminar' + url);
+    return this.http.delete(url).then(
+        (res)=>{
+            console.debug('Peticion correcta %o', res);
+            return res.data;
+        });
+}
+
+public crear(libro: ILibro): angular.IPromise<any> {
+    console.log('servicio POST' + ENDPOINT);
+    return this.http.post(ENDPOINT, libro).then(
+        (result)=>{
+            console.debug('Peticion correcta %o', result);
+            return result.data;
+        });
+}
+
+public modificar(id: number, libro: ILibro): angular.IPromise<any> {
+    let url = ENDPOINT + id;
+    console.log('servicio PUT' + url);
+    return this.http.put(url, libro).then(
+        (result)=>{
+            console.debug('Peticion correcta %o', result);
+            return result.data;
+        });
+}
 
 
 }

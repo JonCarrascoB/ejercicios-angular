@@ -53,6 +53,15 @@
       "digital": "true",
       "id": 4,
       "formatos": "epub"
+    },
+    {
+      "titulo": "El Salón Ambar",
+      "autor": "Matilde Asensi",
+      "numeroPaginas": 230,
+      "isbn": "852145985632",
+      "digital": "false",
+      "formatos": "epub",
+      "id": 5
     }
   ]
 }

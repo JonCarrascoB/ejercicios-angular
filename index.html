@@ -21,13 +21,17 @@
     <!-- Modelo de datos -->
     <script src="model/IContratoResumen.js"></script>
     <script src="model/ILibro.js"></script>
+    <script src="model/Libro.js"></script>
+    <script src="model/IMovie.js"></script>
 
     <!-- Servicios -->
     <script src="services/librosService.js"></script>
+    <script src="services/moviesService.js"></script>
 
     <!-- Controladores -->
     <script src="controllers/ContratosController.js"></script>
     <script src="controllers/LibrosController.js"></script>
+    <script src="controllers/MoviesController.js"></script>
 
     <!-- Nuestra App -->
     <script src="app.js"></script>
@@ -40,6 +44,8 @@
     
     <!-- Vistas a cargar dinamicamente al navegador de la app-->
     <main class="container" ui-view></main>
+
+    <div ng-include="'views/footer.html'"></div>
 
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>

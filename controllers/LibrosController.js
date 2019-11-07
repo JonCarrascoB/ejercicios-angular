@@ -7,6 +7,7 @@ var LibrosController = (function () {
         $scope.vm.titulo = "Listado de Libros";
         $scope.vm.mensaje = undefined;
         $scope.vm.libros = [];
+        $scope.vm.formatos = ["pdf", "epub", "opf", "mobi"];
         librosService.getLibros().then(function (datos) {
             $scope.vm.libros = datos;
             console.debug('datos %o', $scope.vm.libros);
@@ -21,17 +22,18 @@ var LibrosController = (function () {
             console.trace('funcion editar');
             $scope.vm.mostrarForm = true;
             $scope.vm.libroEditar = angular.copy(libro);
-            $scope.vm.obtenerFormatos();
         };
         $scope.vm.nuevo = function () {
             console.trace('funcion nuevo');
             $scope.vm.mostrarForm = true;
-            $scope.vm.obtenerFormatos();
         };
-        $scope.vm.borrar = function (id) {
+        $scope.vm.borrar = function () {
+            var id = $scope.vm.libroBorrar.id;
             console.trace('click para eliminar libro por id %s', id);
             librosService.delete(id).then(function (response) {
                 console.debug('Llamada Rest OK %o', response);
+                var indice = $scope.vm.libros.indexOf($scope.vm.libroBorrar);
+                $scope.vm.libros.splice(indice, 1);
                 $scope.vm.mensaje = {
                     "texto": "OK, el libro ha sido eliminado con exito",
                     "clase": "success"
@@ -47,6 +49,18 @@ var LibrosController = (function () {
         $scope.vm.guardar = function () {
             var lib = $scope.vm.libroEditar;
             console.debug('submitado formulario %o', lib);
+            var formatTemp = lib.formatos.filter(function (elem) { return elem.titulo; });
+            console.debug('formatos temp %o', formatTemp);
+            if (!lib.digital) {
+                lib.formatos = undefined;
+            }
+            if (lib.digital && !lib.formatos) {
+                $scope.vm.mensaje = {
+                    "texto": "*Es necesario elegir algún tipo de formato digital",
+                    "clase": "warning"
+                };
+                return false;
+            }
             if (lib.id) {
                 librosService.modificar(lib.id, lib).then(function (data) {
                     console.debug('Llamada Rest OK %o', data);
@@ -54,7 +68,8 @@ var LibrosController = (function () {
                         "texto": "OK, El libro ha sido modificado con exito",
                         "clase": "success"
                     };
-                    $scope.vm.libros.splice(data);
+                    var indice = $scope.vm.libros.indexOf($scope.vm.$scope.vm.libroEditar);
+                    $scope.vm.libros.splice(indice, 1);
                     $scope.vm.libroEditar = undefined;
                 }, function (response) {
                     console.warn('Llamada Rest ERROR %o', response);
@@ -82,11 +97,13 @@ var LibrosController = (function () {
                 });
             }
         };
-        $scope.vm.obtenerFormatos = function () {
+        $scope.vm.obtenerFormatos = function (id) {
             $scope.vm.temp = $scope.vm.libros.filter(function (elem) { return elem.formatos != undefined; });
-            var temporal = $scope.vm.temp.map(function (elem) { return elem.formatos; }).flat();
+            var temporal = $scope.vm.temp.map(function (elem) { return elem.formatos.map(function (elem) { return elem.titulo; }).flat(); });
             console.debug('temporales %o', temporal);
-            $scope.vm.formatos = temporal.filter(function (v, i, a) { return a.indexOf(v) === i; });
+            if (temporal.length > 0 && id) {
+                $scope.vm.formatos = temporal.flat().filter(function (v, i, a) { return a.indexOf(v) === i; });
+            }
             console.debug("formatos %o", $scope.vm.formatos);
         };
     }
