@@ -23,15 +23,19 @@
     <script src="model/ILibro.js"></script>
     <script src="model/Libro.js"></script>
     <script src="model/IMovie.js"></script>
+    <script src="model/IPokedex.js"></script>
+    <script src="model/IPokemon.js"></script>
 
     <!-- Servicios -->
     <script src="services/librosService.js"></script>
     <script src="services/moviesService.js"></script>
+    <script src="services/pokemonService.js"></script>
 
     <!-- Controladores -->
     <script src="controllers/ContratosController.js"></script>
     <script src="controllers/LibrosController.js"></script>
     <script src="controllers/MoviesController.js"></script>
+    <script src="controllers/PokemonController.js"></script>
 
     <!-- Nuestra App -->
     <script src="app.js"></script>
@@ -43,7 +47,7 @@
     <div ng-include="'views/navbar.html'"></div>
     
     <!-- Vistas a cargar dinamicamente al navegador de la app-->
-    <main class="container" ui-view></main>
+    <main class="container main" ui-view></main>
 
     <div ng-include="'views/footer.html'"></div>
 

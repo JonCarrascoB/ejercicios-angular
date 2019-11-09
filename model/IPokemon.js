@@ -1,0 +1,1 @@
+//# sourceMappingURL=IPokemon.js.map

@@ -9,3 +9,7 @@ nav a{
 .lineaV{
     border-right: 4px solid teal;
 }
+.main{
+    padding-bottom: 20px;
+    margin-bottom: 20px;
+}

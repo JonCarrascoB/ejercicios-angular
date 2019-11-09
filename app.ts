@@ -14,9 +14,11 @@ const app = angular.module("repaso", // nombre de la App o modulo principal
 app
   .service("librosService", LibrosService)
   .service("moviesService", MoviesService)
+  .service("pokemonService", PokemonService)
   .controller("contratosController", ContratosController)
   .controller("contratosController", ContratosController)
-  .controller("moviesController", MoviesController);
+  .controller("moviesController", MoviesController)
+  .controller("pokemonController", PokemonController);
 
 // 3. configuracion de rutas
 app.config([
@@ -50,6 +52,11 @@ app.config([
           url:"/movies",
           templateUrl: "views/movies.html",
           controller: MoviesController
+        })
+        .state("pokemon",{
+          url:"/pokemon",
+          templateUrl: "views/pokemon.html",
+          controller: PokemonController
         })
         /*
         .state("app", {

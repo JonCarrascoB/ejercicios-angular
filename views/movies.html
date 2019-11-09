@@ -1,7 +1,7 @@
 <h1>{{vm.titulo}}</h1>
 <!-- Avisos al crear, modificar, eliminar, etc... -->
 <div class="alert alert-{{vm.mensaje.clase}} alert-dismissible fade show" role="alert" ng-if="vm.mensaje">
-    <p ng-bind-html="vm.mensaje.texto"></p>
+    <p>{{vm.mensaje.texto}}</p>
     <button type="button" class="close" data-dismiss="alert" aria-label="Close" ng-hide="{{(vm.mensaje.clase)?'false':'true'}}">
       <span aria-hidden="true">&times;</span>
     </button>

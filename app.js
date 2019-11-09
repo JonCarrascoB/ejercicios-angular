@@ -2,9 +2,11 @@ var app = angular.module("repaso", ["ui.router"]);
 app
     .service("librosService", LibrosService)
     .service("moviesService", MoviesService)
+    .service("pokemonService", PokemonService)
     .controller("contratosController", ContratosController)
     .controller("contratosController", ContratosController)
-    .controller("moviesController", MoviesController);
+    .controller("moviesController", MoviesController)
+    .controller("pokemonController", PokemonController);
 app.config([
     "$urlRouterProvider",
     "$stateProvider",
@@ -34,6 +36,11 @@ app.config([
             url: "/movies",
             templateUrl: "views/movies.html",
             controller: MoviesController
+        })
+            .state("pokemon", {
+            url: "/pokemon",
+            templateUrl: "views/pokemon.html",
+            controller: PokemonController
         });
     }
 ]);
