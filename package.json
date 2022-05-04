@@ -4,7 +4,7 @@
   "description": "Repaso de angular con TipeScript",
   "main": "index.js",
   "dependencies": {
-    "angular": "^1.6.9"
+    "angular": "^1.8.3"
   },
   "devDependencies": {
     "@types/angular": "^1.6.43",
